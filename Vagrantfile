@@ -9,6 +9,7 @@ Vagrant::Config.run do |config|
 
   # defaults
   vm_default = proc do |cfg|
+    # todo
     cfg.vm.box = "precise64-ruby-1.9.3-p194"
     cfg.vm.box_url = "https://dl.dropbox.com/u/14292474/vagrantboxes/precise64-ruby-1.9.3-p194.box"
 
@@ -59,7 +60,8 @@ Vagrant::Config.run do |config|
 
 
       # provision by chef solo
-      if opts[:chef_client] then
+      if not opts[:chef_client].nil? then
+        puts "Chef client: #{node}"
         orgname = opts[:chef_client][:orgname]
 
         cfg.vm.provision :chef_client do |chef|
@@ -82,6 +84,7 @@ Vagrant::Config.run do |config|
         end # :chef_client
       else
         cfg.vm.provision :chef_solo do |chef|
+          puts "Chef solo: #{node}"
           # chef_default[chef]
           chef.cookbooks_path = opts[:cookbooks_path].nil? ? "cookbooks" : opts[:cookbooks_path]
 
@@ -89,8 +92,8 @@ Vagrant::Config.run do |config|
           chef.log_level = :debug
 
           # process role string
-          if not opts[:roles].nil? then 
-            opts[:roles].gsub("\n",'').gsub(/\s+/,'').split(",").each do |role|
+          if not opts[:chef_solo][:roles].nil? then 
+            opts[:chef_solo][:roles].gsub("\n",'').gsub(/\s+/,'').split(",").each do |role|
               t,r = role.gsub("["," ").gsub("]","").split()
               chef.add_role r if t == "role"
               chef.add_recipe r if t == "recipe"
@@ -98,6 +101,7 @@ Vagrant::Config.run do |config|
           end
 
           # access from chef node[:]
+          # todo
           chef.json = {
             :cluster => $cluster,
             :host => opts,

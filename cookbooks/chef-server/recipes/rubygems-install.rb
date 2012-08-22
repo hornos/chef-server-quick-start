@@ -151,6 +151,16 @@ directory node['chef_server']['run_path'] do
   mode 0755
 end
 
+# vagrant link
+if not node['instance_role'].nil? and node['instance_role'] == 'vagrant' then
+  %w{expander server server-webui solr}.each do |l|
+    puts "Fix vagrant chef link: #{l}"
+    link "/usr/bin/chef-#{l}" do
+      to "/usr/sbin/chef-#{l}"
+    end
+  end
+end
+
 # install solr
 execute "chef-solr-installer" do
   command  "chef-solr-installer -c /etc/chef/solr.rb -u chef -g #{root_group}"

@@ -73,3 +73,8 @@ Init
 * git add .
 * git commit -m 'init'
 * script/get_cookbooks
+* vagrant ssh
+* /vagrant/script/create_host_admin (.chef/webui.pem .chef/validation.pem)
+* /vagrant/script/create_client macbook -a
+* macbook.pem validation.pem is ready t use
+* chef server is on 10.10.10.10:4040

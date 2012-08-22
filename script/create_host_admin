@@ -1,0 +1,17 @@
+#!/bin/bash
+
+CHEF="${HOME}/.chef"
+
+if test -r "${CHEF}" ; then
+  echo "Remove ${CHEF}"
+  exit 1
+fi
+
+echo "Create host chef admin?"
+read -p "Enter to continue, Ctrl+C to abort"
+
+mkdir -p ${CHEF}
+sudo cp /etc/chef/validation.pem /etc/chef/webui.pem ${CHEF}
+sudo chown -R ${USER} ${CHEF}
+
+knife configure -i
