@@ -1,0 +1,16 @@
+apache2
+apt
+bluepill
+build-essential
+chef-client
+chef-server
+couchdb
+daemontools
+erlang
+gecode
+java
+openssl
+runit
+ucspi-tcp
+xml
+zlib

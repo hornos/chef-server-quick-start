@@ -1,0 +1,27 @@
+#!/bin/bash
+
+COOKBOOKS="
+apache2
+apt
+bluepill
+build-essential
+chef-client
+chef-server
+couchdb
+daemontools
+erlang
+gecode
+java
+openssl
+runit
+ucspi-tcp
+xml
+zlib"
+
+echo ""
+echo "Cookbooks: ${COOKBOOKS}"
+echo "Download?"
+read
+for i in ${COOKBOOKS} ; do
+  knife cookbook site install ${i}
+done
