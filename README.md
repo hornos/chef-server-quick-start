@@ -1,3 +1,24 @@
+Init
+====
+Init is used to recreate the Chef server from scratch. If you want tu use it out of the box go to Usage.
+
+1. git init
+* git add .
+* git commit -m 'init'
+* script/get_cookbooks
+* Edit Clusterfile
+* vagrant up
+
+Usage
+=====
+Edit Clustefile if necessary.
+
+1. vagrant ssh
+* Create local administrator: /vagrant/script/create_host_admin (answer:.chef/webui.pem .chef/validation.pem)                                                   
+* Create remote administrator: /vagrant/script/create_client USER -a
+* USER.pem USER-validator.pem is ready to use by other Vagrant Chef to provision a new cluster
+* The Chef server runs on 10.10.10.10:4040 and have a redirection to localhost on nat (4000,4040)
+
 Overview
 ========
 
@@ -64,17 +85,3 @@ Next Steps
 ==========
 
 Read the README file in each of the subdirectories for more information about what goes in those directories.
-
-
-Init
-====
-* Edit .chef/knife.rb
-* git init
-* git add .
-* git commit -m 'init'
-* script/get_cookbooks
-* vagrant ssh
-* /vagrant/script/create_host_admin (.chef/webui.pem .chef/validation.pem)
-* /vagrant/script/create_client macbook -a
-* macbook.pem validation.pem is ready t use
-* chef server is on 10.10.10.10:4040
