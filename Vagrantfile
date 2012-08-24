@@ -73,12 +73,8 @@ Vagrant::Config.run do |config|
           chef.log_level = :debug
           chef.environment = opts[:chef_client][:environment]
 
-          if not opts[:chef_client][:roles].nil? then 
-            opts[:chef_client][:roles].gsub("\n",'').gsub(/\s+/,'').split(",").each do |role|
-              t,r = role.gsub("["," ").gsub("]","").split()
-              chef.add_role r if t == "role"
-              chef.add_recipe r if t == "recipe"
-            end
+          if not opts[:chef_client][:roles].nil? then
+            chef.run_list = opts[:chef_client][:roles].split(",")
           end
 
         end # :chef_client
@@ -93,11 +89,7 @@ Vagrant::Config.run do |config|
 
           # process role string
           if not opts[:chef_solo][:roles].nil? then 
-            opts[:chef_solo][:roles].gsub("\n",'').gsub(/\s+/,'').split(",").each do |role|
-              t,r = role.gsub("["," ").gsub("]","").split()
-              chef.add_role r if t == "role"
-              chef.add_recipe r if t == "recipe"
-            end
+            chef.run_list = opts[:chef_solo][:roles].split(",")
           end
 
           # access from chef node[:]
