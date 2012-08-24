@@ -21,6 +21,6 @@ knife client create ${user} -d ${type} -f ${key}
 
 echo "Copy to vagrant?"
 read
-cp ${HOME}/.chef/validation.pem /vagrant/${user}-validator.pem
+cp ${HOME}/.chef/validation.pem /vagrant/chef-validator.pem
 cp ${HOME}/${key} /vagrant/
 

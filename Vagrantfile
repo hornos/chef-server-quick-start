@@ -59,7 +59,7 @@ Vagrant::Config.run do |config|
       cfg.vbguest.no_remote   = true
 
 
-      # provision by chef solo
+      # only for hosted chef
       if not opts[:chef_client].nil? then
         puts "Chef client: #{node}"
         orgname = opts[:chef_client][:orgname]
