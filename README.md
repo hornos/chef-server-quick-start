@@ -1,22 +1,22 @@
 Init
 ====
-Init is used to recreate the Chef server from scratch. If you want tu use it out of the box go to Usage.
+Init is used to recreate the Chef server from scratch. If you want to use it out of the box go to Usage.
 
 1. git init
 * git add .
 * git commit -m 'init'
 * script/get_cookbooks
-* Edit Clusterfile
+* Edit Clusterfile.yaml
 * vagrant up
 
 Usage
 =====
-Edit Clustefile if necessary.
+Clone the repo and edit Clustefile.yaml if necessary.
 
-1. vagrant ssh
-* Create local administrator: /vagrant/script/create_host_admin (answer:.chef/webui.pem .chef/validation.pem)                                                   
+1. vagrant up/ssh
+* Create local administrator: /vagrant/script/create_host_admin (answer:.chef/webui.pem .chef/validation.pem)
 * Create remote administrator: /vagrant/script/create_client USER -a
-* USER.pem USER-validator.pem is ready to use by other Vagrant Chef to provision a new cluster
+* USER.pem chef-validator.pem is ready to use by other Vagrant Chef to provision a new cluster
 * The Chef server runs on 10.10.10.10:4040 and have a redirection to localhost on nat (4000,4040)
 
 Overview

@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require 'YAML'
+
+if not File.exists? ARGV[0] then
+  exit 1
+end
+
+Kernel.load(ARGV[0])
+
+out="#{ARGV[0]}.yaml"
+File.open( out, 'w' ) do |out|
+  YAML.dump( $cluster, out )
+end

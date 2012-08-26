@@ -2,7 +2,16 @@
 # vi: set ft=ruby :
 #
 
-Kernel.load 'Clusterfile'
+CLUSTERFILE = 'Clusterfile'
+
+if File.exists? CLUSTERFILE + ".yaml"
+  $cluster = YAML.load_file(CLUSTERFILE + ".yaml")
+elsif File.exists? CLUSTERFILE
+  Kernel.load 'Clusterfile'
+else
+  STDERR.puts "#{CLUSTERFILE} not found"
+  exit 1
+end
 
 Vagrant::Config.run do |config|
 

@@ -1,0 +1,15 @@
+--- 
+:nodes: 
+  :chef: 
+    :chef_solo: 
+      :roles: recipe[apt::default],recipe[chef-server::rubygems-install]
+    :forward: 
+    - - 4000
+      - 4000
+    - - 4040
+      - 4040
+    :chef_server: 
+      webui_enabled: true
+      url: http://chef:4000
+    :hostonly: 10.10.10.10
+    :cpus: 1
