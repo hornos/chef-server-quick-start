@@ -2,23 +2,19 @@
 # vi: set ft=ruby :
 #
 
-CLUSTERFILE = 'Clusterfile'
+CLUSTERFILE = 'Clusterfile.yaml'
 
-if File.exists? CLUSTERFILE + ".yaml"
-  $cluster = YAML.load_file(CLUSTERFILE + ".yaml")
-elsif File.exists? CLUSTERFILE
-  Kernel.load 'Clusterfile'
-else
+if not File.exists? CLUSTERFILE
   STDERR.puts "#{CLUSTERFILE} not found"
   exit 1
 end
 
+$cluster = YAML.load_file(CLUSTERFILE)
+
+
 Vagrant::Config.run do |config|
 
-
-  # defaults
   vm_default = proc do |cfg|
-    # todo
     cfg.vm.box = "precise64-ruby-1.9.3-p194"
     cfg.vm.box_url = "https://dl.dropbox.com/u/14292474/vagrantboxes/precise64-ruby-1.9.3-p194.box"
 
@@ -49,7 +45,6 @@ Vagrant::Config.run do |config|
       cfg.vm.customize ["modifyvm", :id, "--cpus", opts[:cpus]]
 
       cfg.vm.host_name = node.to_s
-      # cfg.vm.base_mac = '080037E7B25D'
 
       if not opts[:hostonly].nil? then
         cfg.vm.network :hostonly, opts[:hostonly]
@@ -64,9 +59,10 @@ Vagrant::Config.run do |config|
       end
 
       # vb guest version check
-      cfg.vbguest.auto_update = false
-      cfg.vbguest.no_remote   = true
-
+      if defined? cfg.vbguest
+        cfg.vbguest.auto_update = false
+        cfg.vbguest.no_remote   = true
+      end
 
       # only for hosted chef
       if not opts[:chef_client].nil? then
